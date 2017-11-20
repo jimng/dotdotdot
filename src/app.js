@@ -6,4 +6,4 @@ const app = express();
 
 app.use(`/time`, TimeRoute);
 
-app.listen(3000, () => console.log('dotdotdot started'));
+app.listen(process.env.PORT || 3000, () => console.log('dotdotdot started'));
