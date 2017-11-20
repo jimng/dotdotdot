@@ -2,6 +2,9 @@
     "name": "dotdotdot",
     "version": "1.0.0",
     "description": "",
+    "engines": {
+        "node": "8.0.0"
+    },
     "main": "index.js",
     "dependencies": {
         "babel-cli": "^6.26.0",
@@ -17,9 +20,9 @@
         "nodemon": "^1.12.1"
     },
     "scripts": {
-        "heroku-prebuild": "babel src -d build --presets es2015,stage-2",
+        "build": "babel src -d build --presets es2015,stage-2",
         "start": "node build/app.js",
-        "dev-start": "nodemon src/app.js --exec babel-node --presets es2015,stage-2",
+        "dev": "nodemon src/app.js --exec babel-node --presets es2015,stage-2",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
