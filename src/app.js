@@ -22,4 +22,8 @@ app.use((req, res) => {
     }
 });
 
+app.use((req, res) => {
+    res.status(404);
+})
+
 app.listen(process.env.PORT || 3000, () => console.log('dotdotdot started'));
