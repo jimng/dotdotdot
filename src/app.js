@@ -1,5 +1,6 @@
 import express from 'express';
 import config from 'config';
+import randomstring from 'randomstring';
 
 import TelegramUtil from './utils/TelegramUtil';
 
@@ -14,7 +15,7 @@ telegramClient.setWebhook(`${appURL}/${webhookToken}`)
 
 app.use(`${webhookToken}/time`, TimeRoute);
 
-router.use((req, res) => {
+app.use((req, res) => {
     if (req.reply !== undefined) {
         const chatId = req.body.message.chat.id;
         telegramClient.sendMessage(chatId, req.reply);
