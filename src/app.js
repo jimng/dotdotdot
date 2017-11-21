@@ -19,6 +19,8 @@ app.use((req, res) => {
     if (req.reply !== undefined) {
         const chatId = req.body.message.chat.id;
         telegramClient.sendMessage(chatId, req.reply);
+    } else {
+        next();
     }
 });
 
