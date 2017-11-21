@@ -15,7 +15,7 @@ telegramClient.setWebhook(`${appURL}/${webhookToken}`)
 
 app.use(`${webhookToken}/time`, TimeRoute);
 
-app.use((req, res) => {
+app.use((req, res, next) => {
     if (req.reply !== undefined) {
         const chatId = req.body.message.chat.id;
         telegramClient.sendMessage(chatId, req.reply);
