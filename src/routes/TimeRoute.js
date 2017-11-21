@@ -5,10 +5,12 @@ const router = express.Router();
 
 const timeZone = 'Asia/Hong_Kong';
 
-router.get('/', (req, res) => {
-    const currentTime = moment().tz(timeZone).format('MM/DD/YYYY h:mm:ss a')
+router.post('/', (req, res, next) => {
+    const currentTime = moment().tz(timeZone).format('MM/DD/YYYY h:mm:ss a');
 
-    res.send(`The current time is ${currentTime}`);
+    req.reply = `The current time is ${currentTime}`;
+    res.json({ ok: true });
+    next();
 });
 
 module.exports = router;

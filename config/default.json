@@ -1,4 +1,7 @@
 {
+    "app": {
+        "url": "https://blooming-chamber-43240.herokuapp.com/"
+    },
     "telegram": {
         "apiToken": "462253988:AAFf4fEfDsSJDPaVZGL2EqrQORJ45WVVBkI"
     }
