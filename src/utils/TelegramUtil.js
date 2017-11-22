@@ -1,9 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
-import config from 'config';
 
 function getInstance() {
-    const telegramConfig = config.get('telegram');
-    const apiToken = telegramConfig.get('apiToken');
+    const apiToken = process.env.TELEGRAM_API_TOKEN;
 
     return new TelegramBot(apiToken, { polling: true });
 }
