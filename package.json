@@ -21,10 +21,8 @@
         "nodemon": "^1.12.1"
     },
     "scripts": {
-        "build": "babel src -d build --presets es2015,stage-2",
-        "heroku-prebuild": "babel src -d build --presets es2015,stage-2",
-        "start": "node build/app.js",
-        "dev": "nodemon src/app.js --exec babel-node --presets es2015,stage-2",
+        "start": "nodemon src/app.js --exec babel-node --presets es2015,stage-2",
+        "prod-start": "babel src -d build --presets es2015,stage-2; node build/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
