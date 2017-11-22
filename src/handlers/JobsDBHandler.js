@@ -10,7 +10,7 @@ const requestPromise = Promise.promisify(request);
 export default class JobsDBHandler extends AbstractHandler {
 
     async getReply(msg, match) {
-        const keyword = match[1];
+        const keyword = match[2];
         const options = {
             method: 'GET',
             url: 'http://m.jobsdb.com/en-hk/search.do',
