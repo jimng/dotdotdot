@@ -8,8 +8,8 @@ const LeaveResponseText = ResponseText.Leave;
 
 const TIME_ZONE = 'Asia/Hong_Kong';
 const HH_MM_SS = 'hh:mm:ss';
-const WORK_START_TIME = '09:30:00';
-const WORK_END_TIME = '18:30:00';
+const WORK_START_TIME = '01:30:00';
+const WORK_END_TIME = '10:30:00';
 const SAT_INDEX = 6;
 const SUN_INDEX = 7;
 
