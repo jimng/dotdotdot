@@ -5,6 +5,7 @@ import TelegramUtil from './utils/TelegramUtil';
 import TimeHandler from './handlers/TimeHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
 import BuddhaHandler from './handlers/BuddhaHandler';
+import HKNoITHandler from './handlers/HKNoITHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
@@ -18,6 +19,10 @@ async function start() {
         {
             regex: new RegExp(`^/buddha(${atBot})?\\s*$`, 'i'),
             class: BuddhaHandler
+        },
+        {
+            regex: new RegExp(`^/hknoit(${atBot})?\\s*$`, 'i'),
+            class: HKNoITHandler
         },
         {
             regex: new RegExp(`^/jobsdb(${atBot})?\\s+(\\w+)\\s*$`, 'i'),
