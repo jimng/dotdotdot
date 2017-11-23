@@ -37,7 +37,7 @@ async function start() {
             class: NoJHandler
         },
         {
-            regex: new RegExp(`^/jobsdb(${atBot})?\\s+(\\w+)\\s*$`, 'i'),
+            regex: new RegExp(`^/jobsdb(${atBot})?\\s+(.+)$`, 'i'),
             class: JobsDBHandler
         },
         {
