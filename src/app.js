@@ -4,6 +4,7 @@ import TelegramUtil from './utils/TelegramUtil';
 
 import TimeHandler from './handlers/TimeHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
+import NewsHandler from './handlers/NewsHandler';
 import BuddhaHandler from './handlers/BuddhaHandler';
 import BibleHandler from './handlers/BibleHandler';
 import HKNoITHandler from './handlers/HKNoITHandler';
@@ -37,6 +38,10 @@ async function start() {
         {
             regex: new RegExp(`^/jobsdb(${atBot})?\\s+(\\w+)\\s*$`, 'i'),
             class: JobsDBHandler
+        },
+        {
+            regex: new RegExp(`^/hknews(${atBot})?\\s*$`, 'i'),
+            class: NewsHandler
         },
     ];
     const numCommands = commands.length;
