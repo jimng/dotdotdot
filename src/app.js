@@ -2,7 +2,7 @@ import 'babel-polyfill';
 
 import TelegramUtil from './utils/TelegramUtil';
 
-import TimeHandler from './handlers/TimeHandler';
+import LeaveHandler from './handlers/LeaveHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
 import HKGoldenHandler from './handlers/HKGoldenHandler';
@@ -17,8 +17,20 @@ async function start() {
     const atBot = `@${botInfo.username}`;
     const commands = [
         {
-            regex: new RegExp(`^/time(${atBot})?\\s*$`, 'i'),
-            class: TimeHandler
+            regex: new RegExp(`^/leave(${atBot})?\\s*$`, 'i'),
+            class: LeaveHandler
+        },
+        {
+            regex: new RegExp(`^/jobsdb(${atBot})?\\s+(.+)$`, 'i'),
+            class: JobsDBHandler
+        },
+        {
+            regex: new RegExp(`^/hknews(${atBot})?\\s*$`, 'i'),
+            class: NewsHandler
+        },
+        {
+            regex: new RegExp(`^/hkgolden(${atBot})?\\s*$`, 'i'),
+            class: HKGoldenHandler
         },
         {
             regex: new RegExp(`^/buddha(${atBot})?\\s*$`, 'i'),
@@ -35,18 +47,6 @@ async function start() {
         {
             regex: new RegExp(`^/noj1314(${atBot})?\\s*$`, 'i'),
             class: NoJHandler
-        },
-        {
-            regex: new RegExp(`^/jobsdb(${atBot})?\\s+(.+)$`, 'i'),
-            class: JobsDBHandler
-        },
-        {
-            regex: new RegExp(`^/hknews(${atBot})?\\s*$`, 'i'),
-            class: NewsHandler
-        },
-        {
-            regex: new RegExp(`^/hkgolden(${atBot})?\\s*$`, 'i'),
-            class: HKGoldenHandler
         },
     ];
     const numCommands = commands.length;
