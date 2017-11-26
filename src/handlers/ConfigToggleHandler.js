@@ -18,6 +18,11 @@ export default class ConfigToggleHandler extends AbstractHandler {
                     reply = ResponseText.Config.CGST_DETECT;
                     break;
 
+                case Commands.DAILY_COUNT:
+                    configKey = DBSchema.ChatConfigs.DAILY_COUNT;
+                    reply = ResponseText.Config.DAILY_COUNT;
+                    break;
+
                 default:
                     throw new Error('Unknown config type');
             }
@@ -32,6 +37,7 @@ export default class ConfigToggleHandler extends AbstractHandler {
             await connection.collection(DBSchema.Collections.CHAT_CONFIG).update({
                 '_id': msg.chat.id,
             }, {
+                ...chatConfig,
                 [configKey]: newConfigValue,
             }, { upsert: true });
 

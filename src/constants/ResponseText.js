@@ -6,11 +6,15 @@ export default {
     },
     Config: {
         CGST_DETECT: 'CGST偵察器已{v}',
+        DAILY_COUNT: '每日報到器已{v}',
 
         TURNED_ON: '開',
         TURNED_OFF: '關',
     },
     CGSTDetect: {
         WARNING: '思覺失調，及早治療。',
+    },
+    DailyCount: {
+        REPORT: '每日報到：{c}/{t}',
     }
 };

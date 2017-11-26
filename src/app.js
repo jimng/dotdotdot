@@ -12,6 +12,7 @@ import NewsHandler from './handlers/NewsHandler';
 import HKGoldenHandler from './handlers/HKGoldenHandler';
 import QuoteHandler from './handlers/QuoteHandler';
 import CGSTDetectHandler from './handlers/CGSTDetectHandler';
+import DailyCountHandler from './handlers/DailyCountHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
@@ -19,7 +20,7 @@ async function start() {
     const atBot = `@${botInfo.username}`;
     const commands = [
         {
-            regex: new RegExp(`^/(${Commands.CGST_DETECT})(${atBot})?\\s*$`, 'i'),
+            regex: new RegExp(`^/(${Commands.CGST_DETECT}|${Commands.DAILY_COUNT})(${atBot})?\\s*$`, 'i'),
             Class: ConfigToggleHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer() ],
         },
@@ -46,6 +47,11 @@ async function start() {
         {
             regex: new RegExp('(.+)', 'i'),
             Class: CGSTDetectHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer() ],
+        },
+        {
+            regex: new RegExp('(.+)', 'i'),
+            Class: DailyCountHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer() ],
         },
     ];
