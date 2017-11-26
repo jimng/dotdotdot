@@ -11,7 +11,7 @@ const HH_MM_SS = 'hh:mm:ss';
 const WORK_START_TIME = '01:30:00';
 const WORK_END_TIME = '10:30:00';
 const SAT_INDEX = 6;
-const SUN_INDEX = 7;
+const SUN_INDEX = 0;
 
 export default class LeaveHandler extends AbstractHandler {
 
