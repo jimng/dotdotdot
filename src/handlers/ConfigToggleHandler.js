@@ -26,7 +26,7 @@ export default class ConfigToggleHandler extends AbstractHandler {
             const chatConfig = await collection.findOneAsync({
                 '_id': msg.chat.id,
             });
-            const newConfigValue = ((chatConfig[configKey] !== null) ? !chatConfig[configKey] : true);
+            const newConfigValue = !(chatConfig && chatConfig[configKey]);
             const newConfigText = (newConfigValue ? ResponseText.Config.TURNED_ON : ResponseText.Config.TURNED_OFF);
 
             await connection.collection(DBSchema.Collections.CHAT_CONFIG).update({
