@@ -14,7 +14,6 @@ const SAT_INDEX = 6;
 const SUN_INDEX = 0;
 
 export default class LeaveHandler extends AbstractHandler {
-
     async getReply(msg, match) {
         const currentTime = moment().tz(TIME_ZONE);
         const workStartTime = moment(WORK_START_TIME, HH_MM_SS).tz(TIME_ZONE);
@@ -35,6 +34,5 @@ export default class LeaveHandler extends AbstractHandler {
             .replace('{h}', duration.hours())
             .replace('{m}', duration.minutes())
             .replace('{s}', duration.seconds());
-
     }
 }

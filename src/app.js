@@ -17,32 +17,32 @@ async function start() {
     const commands = [
         {
             regex: new RegExp(`^/${Commands.LEAVE}(${atBot})?\\s*$`, 'i'),
-            class: LeaveHandler
+            Class: LeaveHandler
         },
         {
             regex: new RegExp(`^/${Commands.JOBSDB}(${atBot})?\\s+(.+)$`, 'i'),
-            class: JobsDBHandler
+            Class: JobsDBHandler
         },
         {
             regex: new RegExp(`^/${Commands.HKNEWS}(${atBot})?\\s*$`, 'i'),
-            class: NewsHandler
+            Class: NewsHandler
         },
         {
             regex: new RegExp(`^/${Commands.HKGOLDEN}(${atBot})?\\s*$`, 'i'),
-            class: HKGoldenHandler
+            Class: HKGoldenHandler
         },
         {
             regex: new RegExp(`^/(${Commands.BUDDHA}|${Commands.BIBLE}|${Commands.HKNOIT}|${Commands.NOJ1314})(${atBot})?\\s*$`, 'i'),
-            class: QuoteHandler
+            Class: QuoteHandler
         },
     ];
     const numCommands = commands.length;
 
     for (let i = 0; i < numCommands; i++) {
         const command = commands[i];
-        const handler = new command.class(bot);
+        const handler = new command.Class(bot);
 
-        bot.onText(command.regex, async (msg, match) => {
+        bot.onText(command.regex, async(msg, match) => {
             try {
                 await handler.handle(msg, match);
             } catch (err) {

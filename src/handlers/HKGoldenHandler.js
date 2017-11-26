@@ -7,7 +7,6 @@ import AbstractHandler from './AbstractHandler';
 const requestPromise = Promise.promisify(request);
 
 export default class HKGoldenHandler extends AbstractHandler {
-
     async getReply(msg, match) {
         const options = {
             method: 'GET',
@@ -41,9 +40,10 @@ export default class HKGoldenHandler extends AbstractHandler {
                 .find('a')
                 .eq(0)
                 .attr('href');
+
             reply += `${topicTitle} \nhttp://forum7.hkgolden.com/${topicLink}\n\n`;
         }
 
-        return reply
+        return reply;
     }
 }

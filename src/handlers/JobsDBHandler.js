@@ -1,14 +1,12 @@
 import Promise from 'bluebird';
 import request from 'request';
 import cheerio from 'cheerio';
-import co from 'co';
 
 import AbstractHandler from './AbstractHandler';
 
 const requestPromise = Promise.promisify(request);
 
 export default class JobsDBHandler extends AbstractHandler {
-
     async getReply(msg, match) {
         const keyword = match[2];
         const options = {
@@ -37,11 +35,13 @@ export default class JobsDBHandler extends AbstractHandler {
             let industry = row.find('.ico_industry').text().trim();
             let location = row.find('.ico_name').text().trim();
             let link = row.find('a').eq(1).attr('href');
+
             if (location === 'Not Specified') {
                 location = '';
             } else {
                 location = `in ${location}`;
             }
+
             reply += `${position} of ${industry} ${location}\n${link}\n\n`;
         }
 

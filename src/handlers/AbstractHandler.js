@@ -1,5 +1,4 @@
 export default class AbstractHandler {
-
     constructor(bot) {
         this._bot = bot;
     }

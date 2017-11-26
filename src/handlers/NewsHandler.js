@@ -7,7 +7,6 @@ import AbstractHandler from './AbstractHandler';
 const requestPromise = Promise.promisify(request);
 
 export default class NewsHandler extends AbstractHandler {
-
     async getReply(msg, match) {
         const options = {
             method: 'GET',

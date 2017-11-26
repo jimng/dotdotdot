@@ -7,4 +7,4 @@ export default {
     BIBLE: 'bible',
     HKNOIT: 'hknoit',
     NOJ1314: 'noj1314',
-}
+};

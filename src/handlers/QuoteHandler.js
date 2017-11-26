@@ -4,7 +4,6 @@ import Commands from '../constants/Commands';
 import AllQuotes from '../constants/AllQuotes';
 
 export default class QuoteHandler extends AbstractHandler {
-
     async getReply(msg, match) {
         let quotes;
 
