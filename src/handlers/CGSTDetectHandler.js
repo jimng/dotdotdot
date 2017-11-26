@@ -16,7 +16,7 @@ export default class CGSTDetectHandler extends AbstractHandler {
                 '_id': chatId,
             });
 
-            return chatConfig[DBSchema.ChatConfigs.CGST_DETECT] || false;
+            return (chatConfig && chatConfig[DBSchema.ChatConfigs.CGST_DETECT]) || false;
         });
     }
 
