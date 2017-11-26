@@ -1,17 +1,16 @@
-const TelegramUtil = require('../build/utils/TelegramUtil');
+import TelegramUtil from '../build/utils/TelegramUtil';
 
 const bot = TelegramUtil.getInstance();
 
-function flushMessage() {
-    bot.getUpdates()
-        .then((data) => {
-            if (data.length !== 0) {
-                flushMessage();
-            } else {
-                console.log('Done');
-                process.exit(0);
-            }
-        });
+async function flushMessage() {
+    const data = await bot.getUpdates();
+
+    if (data.length !== 0) {
+        await flushMessage();
+    } else {
+        console.log('Done');
+        process.exit(0);
+    }
 }
 
 flushMessage();
