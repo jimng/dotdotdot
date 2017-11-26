@@ -7,4 +7,5 @@ export default {
     BIBLE: 'bible',
     HKNOIT: 'hknoit',
     NOJ1314: 'noj1314',
+    CGST_DETECT: 'cgst-detect'
 };
