@@ -413,7 +413,7 @@ export default {
         "加人工有保證　理大生棄IT轉行扎鐵 操fit準備入行　盼數年內月薪破三萬 http://hk.apple.nextmedia.com/news/art/20130414/18227572",
         "IT行業薪酬低　難吸納新血 http://hk.apple.nextmedia.com/news/art/20130415/18228688"
     ],
-    NoJ: [
+    NoJ1314: [
         "戒為良藥！不洩為補！",
         "她們只是誘餌，症狀才是裡面的鉤子，症狀是不會放過你的。",
         "他們喜歡，我害怕，因為我深知危害之慘烈！",
