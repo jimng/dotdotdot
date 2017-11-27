@@ -5,6 +5,7 @@ import Commands from './constants/Commands';
 import TelegramUtil from './utils/TelegramUtil';
 import MongoDBUtil from './utils/MongoDBUtil';
 
+import UserRegisterHandler from './handlers/UserRegisterHandler';
 import ConfigToggleHandler from './handlers/ConfigToggleHandler';
 import LeaveHandler from './handlers/LeaveHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
@@ -43,6 +44,11 @@ async function start() {
         {
             regex: new RegExp(`^/(${Commands.BUDDHA}|${Commands.BIBLE}|${Commands.HKNOIT}|${Commands.NOJ1314})(${atBot})?\\s*$`, 'i'),
             Class: QuoteHandler
+        },
+        {
+            regex: new RegExp('(.+)', 'i'),
+            Class: UserRegisterHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer() ],
         },
         {
             regex: new RegExp('(.+)', 'i'),
