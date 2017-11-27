@@ -20,6 +20,15 @@ export default class DailyCountHandler extends AbstractHandler {
         return (chatConfig && chatConfig[DBSchema.ChatConfigs.DAILY_COUNT]) || false;
     }
 
+    async _getNumChatUsers(connection, chatId) {
+        const collection = connection.collection(DBSchema.Collections.CHAT_USERS);
+        const chatUsersMap = (await collection.findOneAsync({
+            '_id': chatId,
+        })).users;
+
+        return Object.keys(chatUsersMap).length;
+    }
+
     _generateNewTimestamp() {
         return moment().tz(TIME_ZONE).format();
     }
@@ -34,7 +43,7 @@ export default class DailyCountHandler extends AbstractHandler {
 
     async _updateDailyCount(connection, chatId, userId) {
         const collection = connection.collection(DBSchema.Collections.DAILY_COUNT);
-        const numMembers = await this._bot.getChatMembersCount(chatId);
+        const numMembers = await this._getNumChatUsers(connection, chatId);
 
         let dailyCountObject = await collection.findOneAsync({
             '_id': chatId,

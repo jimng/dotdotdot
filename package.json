@@ -15,6 +15,7 @@
         "bluebird": "^3.5.1",
         "cheerio": "^1.0.0-rc.2",
         "co": "^4.6.0",
+        "escape-string-regexp": "^1.0.5",
         "moment-timezone": "^0.5.14",
         "mongodb": "^2.2.33",
         "node-telegram-bot-api": "^0.29.0"
