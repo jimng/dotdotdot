@@ -1,5 +1,6 @@
 export default {
     LEAVE: 'leave',
+    TRAVEL: 'travel',
     JOBSDB: 'jobsdb',
     HKNEWS: 'hknews',
     HKGOLDEN: 'hkgolden',
