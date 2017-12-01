@@ -6,7 +6,7 @@ import ResponseText from '../constants/ResponseText';
 
 const TIME_ZONE = 'Asia/Hong_Kong';
 const YYYY_MM_DD_HH_MM_SS = 'YYYY-MM-DD hh:mm:ss';
-const TRAVEL_TIME = '2017-12-17 14:10:00';
+const TRAVEL_TIME = '2017-12-17 06:10:00';
 
 export default class TravelHandler extends AbstractHandler {
     async getReply(msg, match) {
