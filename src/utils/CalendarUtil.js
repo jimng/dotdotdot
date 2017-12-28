@@ -2,7 +2,6 @@ import moment from 'moment-timezone';
 import Promise from 'bluebird';
 import google from 'googleapis';
 
-const TIME_ZONE = 'Asia/Hong_Kong';
 const HOLIDAY_CALENDER_ID = 'zh-tw.hong_kong%23holiday%40group.v.calendar.google.com';
 const WEEKEND_CALENDER_ID = 'q680nit0a73v19qhq3lrj5o890@group.calendar.google.com';
 const FIELDS = 'items/summary,items/start';
@@ -19,7 +18,7 @@ async function getNextEvent(calendarId) {
         fields: FIELDS,
         orderBy: ORDER_BY,
         singleEvents: true,
-        timeMin: moment().tz(TIME_ZONE).format(),
+        timeMin: moment().format(),
         maxResults: 1,
     });
 
