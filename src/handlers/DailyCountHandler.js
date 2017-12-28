@@ -7,8 +7,9 @@ import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
 const TIME_ZONE = 'Asia/Hong_Kong';
-const HH_MM_SS = 'hh:mm:ss';
-const DAILY_CLEANUP_TIME = '00:00:00';
+const YYYY_MM_DD = 'YYYY-MM-DD';
+const HH_MM_SS = 'HH:mm:ss';
+const DAILY_CLEANUP_TIME = '08:00:00'; // In HK time
 
 export default class DailyCountHandler extends AbstractHandler {
     async _isCheckingOn(connection, chatId) {
@@ -34,11 +35,12 @@ export default class DailyCountHandler extends AbstractHandler {
     }
 
     _isTimestampExpired(timestamp) {
-        const currentTime = moment().tz(TIME_ZONE);
-        const timestampTime = moment(timestamp).tz(TIME_ZONE);
-        const dailyCleanUpTime = moment(DAILY_CLEANUP_TIME, HH_MM_SS).tz(TIME_ZONE);
+        const currentMoment = moment().tz(TIME_ZONE);
+        const currentDate = currentMoment.format(YYYY_MM_DD);
+        const timestampMoment = moment.tz(timestamp, TIME_ZONE);
+        const dailyCleanUpMoment = moment.tz(`${currentDate}${DAILY_CLEANUP_TIME}`, `${YYYY_MM_DD}${HH_MM_SS}`, TIME_ZONE);
 
-        return (timestampTime.isBefore(dailyCleanUpTime) && currentTime.isAfter(dailyCleanUpTime));
+        return (timestampMoment.isBefore(dailyCleanUpMoment) && currentMoment.isAfter(dailyCleanUpMoment));
     }
 
     async _updateDailyCount(connection, chatId, userId) {

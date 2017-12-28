@@ -7,28 +7,30 @@ import ResponseText from '../constants/ResponseText';
 const LeaveResponseText = ResponseText.Leave;
 
 const TIME_ZONE = 'Asia/Hong_Kong';
-const HH_MM_SS = 'hh:mm:ss';
-const WORK_START_TIME = '01:30:00';
-const WORK_END_TIME = '10:30:00';
+const YYYY_MM_DD = 'YYYY-MM-DD';
+const HH_MM_SS = 'HH:mm:ss';
+const WORK_START_TIME = '09:30:00'; // In HK time
+const WORK_END_TIME = '18:30:00'; // In HK time
 const SAT_INDEX = 6;
 const SUN_INDEX = 0;
 
 export default class LeaveHandler extends AbstractHandler {
     async getReply(msg, match) {
-        const currentTime = moment().tz(TIME_ZONE);
-        const workStartTime = moment(WORK_START_TIME, HH_MM_SS).tz(TIME_ZONE);
-        const workEndTime = moment(WORK_END_TIME, HH_MM_SS).tz(TIME_ZONE);
-        const weekDayIndex = currentTime.weekday();
+        const currentMoment = moment().tz(TIME_ZONE);
+        const currentDate = currentMoment.format(YYYY_MM_DD);
+        const workStartMoment = moment.tz(`${currentDate}${WORK_START_TIME}`, `${YYYY_MM_DD}${HH_MM_SS}`, TIME_ZONE);
+        const workEndMoment = moment.tz(`${currentDate}${WORK_END_TIME}`, `${YYYY_MM_DD}${HH_MM_SS}`, TIME_ZONE);
+        const weekDayIndex = currentMoment.weekday();
 
         if ((weekDayIndex === SAT_INDEX) || (weekDayIndex === SUN_INDEX)) {
             return LeaveResponseText.WORK_ON_WEEKEND;
         }
 
-        if (currentTime.isBefore(workStartTime) || currentTime.isAfter(workEndTime)) {
+        if (currentMoment.isBefore(workStartMoment) || currentMoment.isAfter(workEndMoment)) {
             return LeaveResponseText.NEED_OT;
         }
 
-        const duration = moment.duration(workEndTime.diff(currentTime));
+        const duration = moment.duration(workEndMoment.diff(currentMoment));
 
         return LeaveResponseText.TIME_FROM_OFF
             .replace('{h}', duration.hours())
