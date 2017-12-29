@@ -8,6 +8,7 @@ import MongoDBUtil from './utils/MongoDBUtil';
 import UserRegisterHandler from './handlers/UserRegisterHandler';
 import ConfigToggleHandler from './handlers/ConfigToggleHandler';
 import LeaveHandler from './handlers/LeaveHandler';
+import WorkHandler from './handlers/WorkHandler';
 import HolidayHandler from './handlers/HolidayHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
@@ -29,6 +30,10 @@ async function start() {
         {
             regex: new RegExp(`^/${Commands.LEAVE}(${atBot})?\\s*$`, 'i'),
             Class: LeaveHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.WORK}(${atBot})?\\s*$`, 'i'),
+            Class: WorkHandler
         },
         {
             regex: new RegExp(`^/${Commands.HOLIDAY}(${atBot})?\\s*$`, 'i'),

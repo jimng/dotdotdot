@@ -8,11 +8,12 @@ const WEEKEND_CALENDER_ID = 'q680nit0a73v19qhq3lrj5o890@group.calendar.google.co
 const FIELDS = 'items/summary,items/start';
 const ORDER_BY = 'startTime';
 const YYYY_MM_DD = 'YYYY-MM-DD';
+const LOOKUP_NUM_ITEMS = 10;
 
 const calendar = google.calendar('v3');
 const calendarEventsList = Promise.promisify(calendar.events.list);
 
-async function getNextEvent(calendarId) {
+async function getNextEvents(calendarId, numItems = 1) {
     const response = await calendarEventsList({
         auth: process.env.GOOGLE_API_KEY,
         calendarId: calendarId,
@@ -20,18 +21,18 @@ async function getNextEvent(calendarId) {
         orderBy: ORDER_BY,
         singleEvents: true,
         timeMin: moment().tz(TIME_ZONE).format(),
-        maxResults: 1,
+        maxResults: numItems,
     });
 
-    return {
-        title: response.items[0].summary,
-        date: response.items[0].start.date,
-    };
+    return response.items.map((item) => ({
+        title: item.summary,
+        date: item.start.date,
+    }));
 }
 
 async function getNextRestDay() {
-    const nextHoliday = await getNextEvent(HOLIDAY_CALENDER_ID);
-    const nextWeekend = await getNextEvent(WEEKEND_CALENDER_ID);
+    const nextHoliday = (await getNextEvents(HOLIDAY_CALENDER_ID))[0];
+    const nextWeekend = (await getNextEvents(WEEKEND_CALENDER_ID))[0];
     const nextHolidayMoment = moment.tz(nextHoliday.date, YYYY_MM_DD, TIME_ZONE);
     const nextWeekendMoment = moment.tz(nextWeekend.date, YYYY_MM_DD, TIME_ZONE);
 
@@ -42,6 +43,25 @@ async function getNextRestDay() {
     }
 }
 
+async function getRestDaysSet() {
+    const holidays = await getNextEvents(HOLIDAY_CALENDER_ID, LOOKUP_NUM_ITEMS);
+    const weekends = await getNextEvents(WEEKEND_CALENDER_ID, LOOKUP_NUM_ITEMS);
+    const numHolidays = holidays.length;
+    const numWeekends = weekends.length;
+    let restDays = new Set();
+
+    for (let i = 0; i < numHolidays; i++) {
+        restDays.add(holidays[i].date);
+    }
+
+    for (let i = 0; i < numWeekends; i++) {
+        restDays.add(weekends[i].date);
+    }
+
+    return restDays;
+}
+
 module.exports = {
     getNextRestDay,
+    getRestDaysSet,
 };
