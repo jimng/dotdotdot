@@ -39,7 +39,7 @@ export default class AllHappyDetectHandler extends AbstractHandler {
                 const responseText = ResponseText.AllHappy.SOMEONE_NOT_HAPPY
                     .replace('{u}', userFirstName);
 
-                status[userId] = true;
+                status[userId] = false;
                 await this._updateStatus(connection, chatId, status);
                 await this._bot.sendMessage(chatId, responseText);
             }

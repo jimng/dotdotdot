@@ -31,9 +31,9 @@ export default class AllHappyStartHandler extends AbstractHandler {
         let status = {};
 
         chatUserIds.forEach((chatUserId) => {
-            status[chatUserId] = true;
+            status[chatUserId] = false;
         });
-        status[userId] = false;
+        status[userId] = true;
 
         await collection.update(
             { '_id': chatId },
