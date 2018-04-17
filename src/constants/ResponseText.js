@@ -20,6 +20,12 @@ export default {
         TURNED_ON: '開',
         TURNED_OFF: '關',
     },
+    AllHappy: {
+        START: 'All Happy偵察器開始運行，請於5分鐘內報告，否則視為Happy！',
+        ALREADY_STARTED: 'All Happy偵察器已在運行中！',
+        SOMEONE_NOT_HAPPY: '{u}已報告！',
+        RESULT_PREFIX: 'All Happy結果：\n',
+    },
     CGSTDetect: {
         WARNING: '思覺失調，及早治療。',
     },

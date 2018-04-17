@@ -78,8 +78,8 @@ export default class DailyCountHandler extends AbstractHandler {
         };
     }
 
-    async handle(msg, match, connectionDisposer) {
-        return Promise.using((connectionDisposer), async(connection) => {
+    async handle(msg, match, getConnectionDisposer) {
+        return Promise.using((getConnectionDisposer()), async(connection) => {
             const chatId = msg.chat.id;
             const userId = msg.from.id;
             const isCheckingOn = await this._isCheckingOn(connection, chatId);

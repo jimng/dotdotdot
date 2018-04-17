@@ -14,6 +14,8 @@ import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
 import HKGoldenHandler from './handlers/HKGoldenHandler';
 import QuoteHandler from './handlers/QuoteHandler';
+import AllHappyStartHandler from './handlers/AllHappyStartHandler';
+import AllHappyDetectHandler from './handlers/AllHappyDetectHandler';
 import CGSTDetectHandler from './handlers/CGSTDetectHandler';
 import DailyCountHandler from './handlers/DailyCountHandler';
 
@@ -25,7 +27,7 @@ async function start() {
         {
             regex: new RegExp(`^/(${Commands.CGST_DETECT}|${Commands.DAILY_COUNT})(${atBot})?\\s*$`, 'i'),
             Class: ConfigToggleHandler,
-            params: () => [ MongoDBUtil.getConnectionDisposer() ],
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {
             regex: new RegExp(`^/${Commands.LEAVE}(${atBot})?\\s*$`, 'i'),
@@ -56,19 +58,29 @@ async function start() {
             Class: QuoteHandler
         },
         {
+            regex: new RegExp(`^/${Commands.ALL_HAPPY}(${atBot})?\\s*$`, 'i'),
+            Class: AllHappyStartHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
             regex: new RegExp('(.+)', 'i'),
             Class: UserRegisterHandler,
-            params: () => [ MongoDBUtil.getConnectionDisposer() ],
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {
             regex: new RegExp('(.+)', 'i'),
             Class: CGSTDetectHandler,
-            params: () => [ MongoDBUtil.getConnectionDisposer() ],
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {
             regex: new RegExp('(.+)', 'i'),
             Class: DailyCountHandler,
-            params: () => [ MongoDBUtil.getConnectionDisposer() ],
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
+            regex: new RegExp('(.+)', 'i'),
+            Class: AllHappyDetectHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
     ];
     const numCommands = commands.length;

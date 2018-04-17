@@ -31,8 +31,8 @@ export default class CGSTDetectHandler extends AbstractHandler {
         return Boolean(regex.test(msgText));
     }
 
-    async handle(msg, match, connectionDisposer) {
-        return Promise.using((connectionDisposer), async(connection) => {
+    async handle(msg, match, getConnectionDisposer) {
+        return Promise.using((getConnectionDisposer()), async(connection) => {
             const chatId = msg.chat.id;
             const isCheckingOn = await this._isCheckingOn(connection, chatId);
 

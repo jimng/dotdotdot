@@ -9,6 +9,7 @@ export default {
     BIBLE: 'bible',
     HKNOIT: 'hknoit',
     NOJ1314: 'noj1314',
+    ALL_HAPPY: 'allhappy',
     CGST_DETECT: 'cgst_detect',
     DAILY_COUNT: 'daily_count',
 };

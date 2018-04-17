@@ -7,8 +7,8 @@ import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
 export default class ConfigToggleHandler extends AbstractHandler {
-    async getReply(msg, match, connectionDisposer) {
-        return Promise.using((connectionDisposer), async(connection) => {
+    async getReply(msg, match, getConnectionDisposer) {
+        return Promise.using((getConnectionDisposer()), async(connection) => {
             let configKey;
             let reply;
 
