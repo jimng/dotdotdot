@@ -5,7 +5,7 @@ import AbstractHandler from './AbstractHandler';
 import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
-const DETECT_DURATION = 10 * 1000; // 5mins
+const DETECT_DURATION = 5 * 60 * 1000; // 5mins
 
 export default class AllActionStartHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
