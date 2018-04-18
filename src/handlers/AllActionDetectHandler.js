@@ -5,9 +5,9 @@ import AbstractHandler from './AbstractHandler';
 import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
-export default class AllHappyDetectHandler extends AbstractHandler {
+export default class AllActionDetectHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
-        const collection = connection.collection(DBSchema.Collections.ALL_HAPPY);
+        const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
 
         return collection.findOneAsync({
             '_id': chatId,
@@ -15,7 +15,7 @@ export default class AllHappyDetectHandler extends AbstractHandler {
     }
 
     async _updateStatus(connection, chatId, nextStatus) {
-        const collection = connection.collection(DBSchema.Collections.ALL_HAPPY);
+        const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
 
         await collection.update(
             { '_id': chatId },
@@ -36,7 +36,7 @@ export default class AllHappyDetectHandler extends AbstractHandler {
             }
 
             if (!status[userId]) {
-                const responseText = ResponseText.AllHappy.SOMEONE_NOT_HAPPY
+                const responseText = ResponseText.AllAction.SOMEONE_REPORTED
                     .replace('{u}', userFirstName);
 
                 status[userId] = true;

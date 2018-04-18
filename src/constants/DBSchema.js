@@ -2,7 +2,7 @@ export default {
     Collections: {
         CHAT_CONFIG: 'ChatConfig',
         DAILY_COUNT: 'DailyCount',
-        ALL_HAPPY: 'AllHappy',
+        ALL_ACTION: 'AllAction',
         CHAT_USERS: 'ChatUsers',
     },
     ChatConfigs: {
