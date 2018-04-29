@@ -60,7 +60,7 @@ export default class AllActionStartHandler extends AbstractHandler {
                 const message = ResponseText.AllAction.ALREADY_STARTED
                     .replace(/{a}/g, actionName);
 
-                this._bot.sendMessage(chatId, message);
+                await this._bot.sendMessage(chatId, message);
 
                 throw new Error('Already Started');
             }

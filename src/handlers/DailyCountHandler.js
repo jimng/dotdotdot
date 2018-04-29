@@ -96,7 +96,7 @@ export default class DailyCountHandler extends AbstractHandler {
                     .replace('{c}', newStatus.numReportedMembers)
                     .replace('{t}', newStatus.numMembers);
 
-                this._bot.sendMessage(chatId, responseText, {
+                await this._bot.sendMessage(chatId, responseText, {
                     'reply_to_message_id': replyMsgId,
                 });
             }

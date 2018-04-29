@@ -45,7 +45,7 @@ export default class CGSTDetectHandler extends AbstractHandler {
             if (isCGST) {
                 const replyMsgId = msg['message_id'];
 
-                this._bot.sendMessage(chatId, ResponseText.CGSTDetect.WARNING, {
+                await this._bot.sendMessage(chatId, ResponseText.CGSTDetect.WARNING, {
                     'reply_to_message_id': replyMsgId,
                 });
             }

@@ -11,7 +11,7 @@ export default class AbstractHandler {
         const chatId = msg.chat.id;
         const message = await this.getReply(msg, match, ...params);
 
-        this._bot.sendMessage(chatId, message, {
+        await this._bot.sendMessage(chatId, message, {
             'disable_web_page_preview': true
         });
     }
