@@ -18,6 +18,8 @@ import AllActionStartHandler from './handlers/AllActionStartHandler';
 import AllActionDetectHandler from './handlers/AllActionDetectHandler';
 import CGSTDetectHandler from './handlers/CGSTDetectHandler';
 import DailyCountHandler from './handlers/DailyCountHandler';
+import IQQuestionHandler from './handlers/IQQuestionHandler';
+import IQAnswerHandler from './handlers/IQAnswerHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
@@ -56,6 +58,14 @@ async function start() {
         {
             regex: new RegExp(`^/(${Commands.BUDDHA}|${Commands.BIBLE}|${Commands.HKNOIT}|${Commands.NOJ1314})(${atBot})?\\s*$`, 'i'),
             Class: QuoteHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.IQ_QUESTION}(${atBot})?\\s*$`, 'i'),
+            Class: IQQuestionHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.IQ_ANSWER}_(\\d+)(${atBot})?$`, 'i'),
+            Class: IQAnswerHandler
         },
         {
             regex: new RegExp(`^/${Commands.ALL_ACTION}(\\w+)(${atBot})?\\s*$`, 'i'),

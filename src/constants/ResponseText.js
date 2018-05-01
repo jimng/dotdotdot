@@ -33,5 +33,9 @@ export default {
     },
     DailyCount: {
         REPORT: '每日報到：{c}/{t}',
+    },
+    IQQuestion: {
+        QUESTION: '問題：{q}\n答案：/iqa_{a}',
+        INVALID_INDEX: 'ID不存在',
     }
 };

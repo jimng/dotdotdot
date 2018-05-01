@@ -12,4 +12,6 @@ export default {
     ALL_ACTION: 'all',
     CGST_DETECT: 'cgst_detect',
     DAILY_COUNT: 'daily_count',
+    IQ_QUESTION: 'iq',
+    IQ_ANSWER: 'iqa',
 };
