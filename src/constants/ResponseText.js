@@ -37,5 +37,13 @@ export default {
     IQQuestion: {
         QUESTION: '問題：{q}\n答案：/iqa_{a}',
         INVALID_INDEX: 'ID不存在',
+    },
+    Exam: {
+        QUESTION: '----------問答遊戲----------\n問題：{q}',
+        RESULT_PREFIX: '----------問答遊戲----------\n問題：{q}\n答案：{a}\n成績：\n',
+        RESULT_CORRECT: '✓',
+        RESULT_WRONG: '✖',
+        RESULT_ABANDONED: '棄權',
+        ALREADY_STARTED: '考試正在進行中，請同學繼續作答！',
     }
 };

@@ -14,4 +14,5 @@ export default {
     DAILY_COUNT: 'daily_count',
     IQ_QUESTION: 'iq',
     IQ_ANSWER: 'iqa',
+    EXAM: 'exam',
 };

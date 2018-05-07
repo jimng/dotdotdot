@@ -70,9 +70,10 @@ export default class AllActionStartHandler extends AbstractHandler {
 
             await this._bot.sendMessage(chatId, startMessage);
             await this._insertStatus(connection, chatId, userId);
-            await new Promise((resolve, reject) => {
-                setTimeout(resolve, DETECT_DURATION);
-            });
+        });
+
+        await new Promise((resolve, reject) => {
+            setTimeout(resolve, DETECT_DURATION);
         });
 
         await Promise.using(getConnectionDisposer(), async(connection) => {

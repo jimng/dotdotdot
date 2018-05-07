@@ -3,6 +3,7 @@ export default {
         CHAT_CONFIG: 'ChatConfig',
         DAILY_COUNT: 'DailyCount',
         ALL_ACTION: 'AllAction',
+        EXAM: 'Exam',
         CHAT_USERS: 'ChatUsers',
     },
     ChatConfigs: {

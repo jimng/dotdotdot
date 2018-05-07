@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 
 import Commands from './constants/Commands';
+import Callbacks from './constants/Callbacks';
 
 import TelegramUtil from './utils/TelegramUtil';
 import MongoDBUtil from './utils/MongoDBUtil';
@@ -20,6 +21,8 @@ import CGSTDetectHandler from './handlers/CGSTDetectHandler';
 import DailyCountHandler from './handlers/DailyCountHandler';
 import IQQuestionHandler from './handlers/IQQuestionHandler';
 import IQAnswerHandler from './handlers/IQAnswerHandler';
+import ExamHandler from './handlers/ExamHandler';
+import ExamAnswerHandler from './handlers/ExamAnswerHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
@@ -68,6 +71,11 @@ async function start() {
             Class: IQAnswerHandler
         },
         {
+            regex: new RegExp(`^/${Commands.EXAM}(${atBot})?\\s*$`, 'i'),
+            Class: ExamHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
             regex: new RegExp(`^/${Commands.ALL_ACTION}(\\w+)(${atBot})?\\s*$`, 'i'),
             Class: AllActionStartHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
@@ -94,6 +102,12 @@ async function start() {
         },
     ];
     const numCommands = commands.length;
+    const callbackQueries = {
+        [Callbacks.EXAM]: {
+            Class: ExamAnswerHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+    };
 
     for (let i = 0; i < numCommands; i++) {
         const command = commands[i];
@@ -105,10 +119,37 @@ async function start() {
 
                 await handler.handle(msg, match, ...params);
             } catch (err) {
-                console.error(err);
+                console.error('Error received from commmand', err);
             }
         });
     }
+
+    bot.on('callback_query', async(callbackMsg) => {
+        try {
+            callbackMsg = {
+                ...callbackMsg,
+                data: JSON.parse(callbackMsg.data)
+            };
+
+            const callbackData = callbackMsg.data;
+
+            if (!callbackData || !callbackData.type) {
+                throw new Error('Invalid callback data');
+            }
+
+            if (!callbackQueries[callbackData.type]) {
+                throw new Error('Unknown callback data type');
+            }
+
+            const callbackQuery = callbackQueries[callbackData.type];
+            const handler = new callbackQuery.Class(bot);
+            const params = (callbackQuery.params && callbackQuery.params()) || [];
+
+            await handler.handle(callbackMsg, ...params);
+        } catch (err) {
+            console.error('Error received from callback query', err);
+        }
+    });
 }
 
 start();
