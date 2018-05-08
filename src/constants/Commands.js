@@ -2,6 +2,7 @@ export default {
     LEAVE: 'leave',
     WORK: 'work',
     HOLIDAY: 'holiday',
+    STACK_OVERFLOW: 'stackoverflow',
     JOBSDB: 'jobsdb',
     HKNEWS: 'hknews',
     HKGOLDEN: 'hkgolden',

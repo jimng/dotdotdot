@@ -19,7 +19,9 @@
         "googleapis": "^23.0.0",
         "moment-timezone": "^0.5.14",
         "mongodb": "^2.2.33",
-        "node-telegram-bot-api": "^0.29.0"
+        "node-telegram-bot-api": "^0.29.0",
+        "stackexchange-node": "^1.0.1",
+        "unescape": "^1.0.1"
     },
     "devDependencies": {
         "eslint": "^4.12.0",

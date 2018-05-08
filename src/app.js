@@ -11,6 +11,7 @@ import ConfigToggleHandler from './handlers/ConfigToggleHandler';
 import LeaveHandler from './handlers/LeaveHandler';
 import WorkHandler from './handlers/WorkHandler';
 import HolidayHandler from './handlers/HolidayHandler';
+import StackOverflowHandler from './handlers/StackOverflowHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
 import HKGoldenHandler from './handlers/HKGoldenHandler';
@@ -45,6 +46,10 @@ async function start() {
         {
             regex: new RegExp(`^/${Commands.HOLIDAY}(${atBot})?\\s*$`, 'i'),
             Class: HolidayHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.STACK_OVERFLOW}(${atBot})?\\s+(.+)$`, 'i'),
+            Class: StackOverflowHandler
         },
         {
             regex: new RegExp(`^/${Commands.JOBSDB}(${atBot})?\\s+(.+)$`, 'i'),
