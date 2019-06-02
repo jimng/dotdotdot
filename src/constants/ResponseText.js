@@ -42,6 +42,9 @@ export default {
         QUESTION: '問題：{q}\n答案：/iqa_{a}',
         INVALID_INDEX: 'ID不存在',
     },
+    MarkSix: {
+        TEXT: '下期六合彩號碼：',
+    },
     Exam: {
         QUESTION: '----------問答遊戲----------\n問題：{q}',
         RESULT_PREFIX: '----------問答遊戲----------\n問題：{q}\n答案：{a}\n成績：\n',

@@ -16,6 +16,7 @@ import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
 import HKGoldenHandler from './handlers/HKGoldenHandler';
 import QuoteHandler from './handlers/QuoteHandler';
+import MarkSixHandler from './handlers/MarkSixHandler';
 import AllActionStartHandler from './handlers/AllActionStartHandler';
 import AllActionDetectHandler from './handlers/AllActionDetectHandler';
 import CGSTDetectHandler from './handlers/CGSTDetectHandler';
@@ -66,6 +67,10 @@ async function start() {
         {
             regex: new RegExp(`^/(${Commands.BUDDHA}|${Commands.BIBLE}|${Commands.HKNOIT}|${Commands.NOJ1314})(${atBot})?\\s*$`, 'i'),
             Class: QuoteHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.MARKSIX}(${atBot})?\\s*$`, 'i'),
+            Class: MarkSixHandler
         },
         {
             regex: new RegExp(`^/${Commands.IQ_QUESTION}(${atBot})?\\s*$`, 'i'),
