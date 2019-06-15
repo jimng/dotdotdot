@@ -79,8 +79,8 @@ export default class AllActionStartHandler extends AbstractHandler {
         await Promise.using(getConnectionDisposer(), async(connection) => {
             const finalStatus = await this._getStatus(connection, chatId, userId);
             const chatUsers = await this._getChatUsers(connection, chatId);
-            const reportedResult = ResponseText.AllAction.RESULT_REPORTED.replace(/{a}/g, actionName);
-            const notReportedResult = ResponseText.AllAction.RESULT_NOT_REPORTED.replace(/{a}/g, actionName);
+            const reportedResult = ResponseText.AllAction.RESULT_REPORTED;
+            const notReportedResult = ResponseText.AllAction.RESULT_NOT_REPORTED;
             const result = ResponseText.AllAction.RESULT_PREFIX
                 .replace(/{a}/g, actionName) +
                 chatUsers.map((chatUser) => (

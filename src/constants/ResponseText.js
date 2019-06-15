@@ -29,8 +29,8 @@ export default {
         ALREADY_STARTED: 'All {a}偵察器已在運行中！',
         SOMEONE_REPORTED: '{u}已報告！',
         RESULT_PREFIX: 'All {a}結果：\n',
-        RESULT_REPORTED: 'Not {a}ing',
-        RESULT_NOT_REPORTED: '{a}ing',
+        RESULT_REPORTED: '✅',
+        RESULT_NOT_REPORTED: '❌',
     },
     CGSTDetect: {
         WARNING: '思覺失調，及早治療。',
