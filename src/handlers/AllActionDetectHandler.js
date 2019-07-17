@@ -5,6 +5,8 @@ import AbstractHandler from './AbstractHandler';
 import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
+const DETECT_DURATION = 5 * 60 * 1000; // 5mins
+
 export default class AllActionDetectHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
         const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
@@ -14,12 +16,16 @@ export default class AllActionDetectHandler extends AbstractHandler {
         });
     }
 
-    async _updateStatus(connection, chatId, nextStatus) {
+    async _updateStatus(connection, chatId, userId) {
         const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
 
         await collection.update(
             { '_id': chatId },
-            nextStatus,
+            {
+                $set: {
+                    userId: true,
+                }
+            },
             { upsert: true }
         );
     }
@@ -31,16 +37,15 @@ export default class AllActionDetectHandler extends AbstractHandler {
             const userFirstName = msg.from.first_name;
             const status = await this._getStatus(connection, chatId);
 
-            if (!status) {
+            if ((status === null) || ((Date.now() - status.timestamp) >= DETECT_DURATION)) {
                 return;
             }
 
-            if (!status[userId]) {
+            if (!status.usersStatus[userId]) {
                 const responseText = ResponseText.AllAction.SOMEONE_REPORTED
                     .replace('{u}', userFirstName);
 
-                status[userId] = true;
-                await this._updateStatus(connection, chatId, status);
+                await this._updateStatus(connection, chatId, userId);
                 await this._bot.sendMessage(chatId, responseText);
             }
         });

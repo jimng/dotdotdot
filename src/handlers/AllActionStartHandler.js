@@ -28,24 +28,21 @@ export default class AllActionStartHandler extends AbstractHandler {
     async _insertStatus(connection, chatId, userId) {
         const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
         const chatUserIds = (await this._getChatUsers(connection, chatId)).map(chatUser => chatUser.id);
-        let status = {};
+        let usersStatus = {};
 
         chatUserIds.forEach((chatUserId) => {
-            status[chatUserId] = false;
+            usersStatus[chatUserId] = false;
         });
-        status[userId] = true;
+        usersStatus[userId] = true;
 
         await collection.update(
             { '_id': chatId },
-            status,
+            {
+                usersStatus,
+                timestamp: Date.now(),
+            },
             { upsert: true }
         );
-    }
-
-    async _removeStatus(connection, chatId) {
-        const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
-
-        await collection.deleteOneAsync({ '_id': chatId });
     }
 
     async handle(msg, match, getConnectionDisposer) {
@@ -56,7 +53,7 @@ export default class AllActionStartHandler extends AbstractHandler {
         await Promise.using(getConnectionDisposer(), async(connection) => {
             const status = await this._getStatus(connection, chatId, userId);
 
-            if (status !== null) {
+            if ((status !== null) && ((Date.now() - status.timestamp) < DETECT_DURATION)) {
                 const message = ResponseText.AllAction.ALREADY_STARTED
                     .replace(/{a}/g, actionName);
 
@@ -72,22 +69,18 @@ export default class AllActionStartHandler extends AbstractHandler {
             await this._insertStatus(connection, chatId, userId);
         });
 
-        await new Promise((resolve, reject) => {
-            setTimeout(resolve, DETECT_DURATION);
-        });
-
+        await new Promise.delay(DETECT_DURATION);
         await Promise.using(getConnectionDisposer(), async(connection) => {
-            const finalStatus = await this._getStatus(connection, chatId, userId);
+            const { usersStatus } = await this._getStatus(connection, chatId, userId);
             const chatUsers = await this._getChatUsers(connection, chatId);
             const reportedResult = ResponseText.AllAction.RESULT_REPORTED;
             const notReportedResult = ResponseText.AllAction.RESULT_NOT_REPORTED;
             const result = ResponseText.AllAction.RESULT_PREFIX
                 .replace(/{a}/g, actionName) +
                 chatUsers.map((chatUser) => (
-                    `${chatUser.first_name}: ${finalStatus[chatUser.id] ? reportedResult : notReportedResult}`
+                    `${chatUser.first_name}: ${usersStatus[chatUser.id] ? reportedResult : notReportedResult}`
                 )).join('\n');
 
-            await this._removeStatus(connection, chatId);
             await this._bot.sendMessage(chatId, result);
         });
     }
