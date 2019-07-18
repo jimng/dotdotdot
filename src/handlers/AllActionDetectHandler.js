@@ -23,7 +23,7 @@ export default class AllActionDetectHandler extends AbstractHandler {
             { '_id': chatId },
             {
                 $set: {
-                    userId: true,
+                    [`usersStatus.${userId}`]: true,
                 }
             },
             { upsert: true }
