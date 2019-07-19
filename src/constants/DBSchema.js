@@ -9,5 +9,6 @@ export default {
     ChatConfigs: {
         CGST_DETECT: 'cgstDetect',
         DAILY_COUNT: 'dailyCount',
+        NSFW_DETECT: 'nsfwDetect',
     },
 };

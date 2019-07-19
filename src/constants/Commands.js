@@ -13,6 +13,7 @@ export default {
     MARKSIX: 'marksix',
     ALL_ACTION: 'all',
     CGST_DETECT: 'cgst_detect',
+    NSFW_DETECT: 'nsfw_detect',
     DAILY_COUNT: 'daily_count',
     IQ_QUESTION: 'iq',
     IQ_ANSWER: 'iqa',

@@ -1,9 +1,8 @@
 import moment from 'moment-timezone';
-import Promise from 'bluebird';
-import google from 'googleapis';
+import { google } from 'googleapis';
 
 const TIME_ZONE = 'Asia/Hong_Kong';
-const HOLIDAY_CALENDER_ID = 'zh-tw.hong_kong%23holiday%40group.v.calendar.google.com';
+const HOLIDAY_CALENDER_ID = 'zh-tw.hong_kong#holiday@group.v.calendar.google.com';
 const WEEKEND_CALENDER_ID = 'q680nit0a73v19qhq3lrj5o890@group.calendar.google.com';
 const FIELDS = 'items/summary,items/start';
 const ORDER_BY = 'startTime';
@@ -11,10 +10,9 @@ const YYYY_MM_DD = 'YYYY-MM-DD';
 const LOOKUP_NUM_ITEMS = 10;
 
 const calendar = google.calendar('v3');
-const calendarEventsList = Promise.promisify(calendar.events.list);
 
 async function getNextEvents(calendarId, numItems = 1) {
-    const response = await calendarEventsList({
+    const response = await calendar.events.list({
         auth: process.env.GOOGLE_API_KEY,
         calendarId: calendarId,
         fields: FIELDS,
@@ -24,7 +22,7 @@ async function getNextEvents(calendarId, numItems = 1) {
         maxResults: numItems,
     });
 
-    return response.items.map((item) => ({
+    return response.data.items.map((item) => ({
         title: item.summary,
         date: item.start.date,
     }));

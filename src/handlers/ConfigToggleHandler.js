@@ -23,6 +23,11 @@ export default class ConfigToggleHandler extends AbstractHandler {
                     reply = ResponseText.Config.DAILY_COUNT;
                     break;
 
+                case Commands.NSFW_DETECT:
+                    configKey = DBSchema.ChatConfigs.NSFW_DETECT;
+                    reply = ResponseText.Config.NSFW_DETECT;
+                    break;
+
                 default:
                     throw new Error('Unknown config type');
             }

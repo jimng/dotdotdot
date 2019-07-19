@@ -25,14 +25,15 @@ import IQQuestionHandler from './handlers/IQQuestionHandler';
 import IQAnswerHandler from './handlers/IQAnswerHandler';
 import ExamHandler from './handlers/ExamHandler';
 import ExamAnswerHandler from './handlers/ExamAnswerHandler';
+import NSFWDetectHandler from './handlers/NSFWDetectHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
     const botInfo = await bot.getMe();
     const atBot = `@${botInfo.username}`;
-    const commands = [
+    const textCommands = [
         {
-            regex: new RegExp(`^/(${Commands.CGST_DETECT}|${Commands.DAILY_COUNT})(${atBot})?\\s*$`, 'i'),
+            regex: new RegExp(`^/(${Commands.CGST_DETECT}|${Commands.DAILY_COUNT}|${Commands.NSFW_DETECT})(${atBot})?\\s*$`, 'i'),
             Class: ConfigToggleHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
@@ -111,7 +112,12 @@ async function start() {
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
     ];
-    const numCommands = commands.length;
+    const photoCommands = [
+        {
+            Class: NSFWDetectHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+    ];
     const callbackQueries = {
         [Callbacks.EXAM]: {
             Class: ExamAnswerHandler,
@@ -119,8 +125,7 @@ async function start() {
         },
     };
 
-    for (let i = 0; i < numCommands; i++) {
-        const command = commands[i];
+    textCommands.forEach((command) => {
         const handler = new command.Class(bot);
 
         bot.onText(command.regex, async(msg, match) => {
@@ -129,10 +134,24 @@ async function start() {
 
                 await handler.handle(msg, match, ...params);
             } catch (err) {
-                console.error('Error received from commmand', err);
+                console.error('Error received from text commmand', err);
             }
         });
-    }
+    });
+
+    photoCommands.forEach((command) => {
+        const handler = new command.Class(bot);
+
+        bot.on('photo', async(msg) => {
+            try {
+                const params = (command.params && command.params()) || [];
+
+                await handler.handle(msg, ...params);
+            } catch (err) {
+                console.error('Error received from photo commmand', err);
+            }
+        });
+    });
 
     bot.on('callback_query', async(callbackMsg) => {
         try {

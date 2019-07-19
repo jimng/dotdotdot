@@ -20,6 +20,7 @@ export default {
     Config: {
         CGST_DETECT: 'CGST偵察器已{v}',
         DAILY_COUNT: '每日報到器已{v}',
+        NSFW_DETECT: 'NSFW偵察器已{v}',
 
         TURNED_ON: '開',
         TURNED_OFF: '關',
@@ -52,5 +53,8 @@ export default {
         RESULT_WRONG: '✖',
         RESULT_ABANDONED: '棄權',
         ALREADY_STARTED: '考試正在進行中，請同學繼續作答！',
+    },
+    NSFWDetect: {
+        PROTECT: '極危險！！！！！\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n危險！！！！！\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n已成功保護大家！！！！！',
     }
 };
