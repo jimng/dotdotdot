@@ -112,7 +112,7 @@ async function start() {
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
     ];
-    const photoCommands = [
+    const generalCommands = [
         {
             Class: NSFWDetectHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
@@ -139,10 +139,10 @@ async function start() {
         });
     });
 
-    photoCommands.forEach((command) => {
+    generalCommands.forEach((command) => {
         const handler = new command.Class(bot);
 
-        bot.on('photo', async(msg) => {
+        bot.on('message', async(msg) => {
             try {
                 const params = (command.params && command.params()) || [];
 

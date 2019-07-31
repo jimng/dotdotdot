@@ -17,7 +17,7 @@
         "googleapis": "^41.0.1",
         "moment-timezone": "^0.5.14",
         "mongodb": "^2.2.33",
-        "node-telegram-bot-api": "^0.29.0",
+        "node-telegram-bot-api": "^0.30.0",
         "ramda": "^0.26.1",
         "stackexchange-node": "^1.0.1",
         "unescape": "^1.0.1"
