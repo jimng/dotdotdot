@@ -14,8 +14,8 @@ export default {
         NO_RESULT: 'No result',
     },
     Holiday: {
-        ALREADY_HOLIDAY: '今日咪係假期（{title}）!',
-        DAYS_FROM_HOLIDAY: '距離下次放假（{title}）仲有{d}日！',
+        HOLIDAY_LIST: '假期如下：\n',
+        HOLIDAY_ITEM: '{d} ({n}日)   {t}'
     },
     Config: {
         CGST_DETECT: 'CGST偵察器已{v}',
