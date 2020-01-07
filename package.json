@@ -12,7 +12,6 @@
         "babel-preset-stage-2": "^6.24.1",
         "bluebird": "^3.5.1",
         "cheerio": "^1.0.0-rc.2",
-        "chinese-conv": "^1.0.1",
         "co": "^4.6.0",
         "escape-string-regexp": "^1.0.5",
         "googleapis": "^41.0.1",
