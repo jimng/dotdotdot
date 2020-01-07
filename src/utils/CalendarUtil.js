@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 import { google } from 'googleapis';
 
 const TIME_ZONE = 'Asia/Hong_Kong';
-const HOLIDAY_CALENDER_ID = 'zh-tw.hong_kong#holiday@group.v.calendar.google.com';
+const HOLIDAY_CALENDER_ID = 'npsi097cth30gh8cone7u4e2b481i6cj@import.calendar.google.com';
 const WEEKEND_CALENDER_ID = 'q680nit0a73v19qhq3lrj5o890@group.calendar.google.com';
 const FIELDS = 'items/summary,items/start';
 const ORDER_BY = 'startTime';
