@@ -1,7 +1,8 @@
 export default {
     LEAVE: 'leave',
     WORK: 'work',
-    HOLIDAY: 'holiday',
+    NEXT_HOLIDAY: 'holiday',
+    PUBLIC_HOLIDAYS: 'public_holidays',
     STACK_OVERFLOW: 'stackoverflow',
     JOBSDB: 'jobsdb',
     HKNEWS: 'hknews',

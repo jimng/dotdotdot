@@ -13,9 +13,13 @@ export default {
         NUM_OF_RESULTS: '{n} results：\n',
         NO_RESULT: 'No result',
     },
-    Holiday: {
+    NextHoliday: {
         ALREADY_HOLIDAY: '今日咪係假期（{title}）!',
         DAYS_FROM_HOLIDAY: '距離下次放假（{title}）仲有{d}日！',
+    },
+    PublicHolidays: {
+        HOLIDAY_LIST: '公眾假期如下：\n',
+        HOLIDAY_ITEM: '{d} ({n}日)   {t}'
     },
     Config: {
         CGST_DETECT: 'CGST偵察器已{v}',

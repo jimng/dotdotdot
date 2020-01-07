@@ -6,7 +6,7 @@ const HOLIDAY_CALENDER_ID = 'npsi097cth30gh8cone7u4e2b481i6cj@import.calendar.go
 const WEEKEND_CALENDER_ID = 'q680nit0a73v19qhq3lrj5o890@group.calendar.google.com';
 const FIELDS = 'items/summary,items/start';
 const ORDER_BY = 'startTime';
-const YYYY_MM_DD = 'YYYY-MM-DD';
+const DATE_FORMAT = 'YYYY-MM-DD';
 const LOOKUP_NUM_ITEMS = 10;
 
 const calendar = google.calendar('v3');
@@ -31,8 +31,8 @@ async function getNextEvents(calendarId, numItems = 1) {
 async function getNextRestDay() {
     const nextHoliday = (await getNextEvents(HOLIDAY_CALENDER_ID))[0];
     const nextWeekend = (await getNextEvents(WEEKEND_CALENDER_ID))[0];
-    const nextHolidayMoment = moment.tz(nextHoliday.date, YYYY_MM_DD, TIME_ZONE);
-    const nextWeekendMoment = moment.tz(nextWeekend.date, YYYY_MM_DD, TIME_ZONE);
+    const nextHolidayMoment = moment.tz(nextHoliday.date, DATE_FORMAT, TIME_ZONE);
+    const nextWeekendMoment = moment.tz(nextWeekend.date, DATE_FORMAT, TIME_ZONE);
 
     if (nextWeekendMoment.isBefore(nextHolidayMoment)) {
         return nextWeekend;
@@ -59,7 +59,23 @@ async function getRestDaysSet() {
     return restDays;
 }
 
+async function getPublicHolidays(numItems) {
+    const currentDate = moment.tz(TIME_ZONE).format(DATE_FORMAT);
+    const nextHolidays = await getNextEvents(HOLIDAY_CALENDER_ID, numItems);
+
+    return nextHolidays.map((holiday) => {
+        const holidayDate = moment(holiday.date).tz(TIME_ZONE).format(DATE_FORMAT);
+
+        return {
+            title: holiday.title,
+            date: holidayDate,
+            numDays: moment.duration(moment(holidayDate).diff(moment(currentDate))).asDays(),
+        };
+    });
+}
+
 module.exports = {
     getNextRestDay,
     getRestDaysSet,
+    getPublicHolidays,
 };

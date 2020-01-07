@@ -10,7 +10,8 @@ import UserRegisterHandler from './handlers/UserRegisterHandler';
 import ConfigToggleHandler from './handlers/ConfigToggleHandler';
 import LeaveHandler from './handlers/LeaveHandler';
 import WorkHandler from './handlers/WorkHandler';
-import HolidayHandler from './handlers/HolidayHandler';
+import NextHolidayHandler from './handlers/NextHolidayHandler';
+import PublicHolidaysHandler from './handlers/PublicHolidaysHandler';
 import StackOverflowHandler from './handlers/StackOverflowHandler';
 import JobsDBHandler from './handlers/JobsDBHandler';
 import NewsHandler from './handlers/NewsHandler';
@@ -46,8 +47,12 @@ async function start() {
             Class: WorkHandler
         },
         {
-            regex: new RegExp(`^/${Commands.HOLIDAY}(${atBot})?\\s*$`, 'i'),
-            Class: HolidayHandler
+            regex: new RegExp(`^/${Commands.NEXT_HOLIDAY}(${atBot})?\\s*$`, 'i'),
+            Class: NextHolidayHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.PUBLIC_HOLIDAYS}(${atBot})?\\s*$`, 'i'),
+            Class: PublicHolidaysHandler
         },
         {
             regex: new RegExp(`^/${Commands.STACK_OVERFLOW}(${atBot})?\\s+(.+)$`, 'i'),
