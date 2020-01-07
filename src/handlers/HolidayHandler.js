@@ -5,20 +5,27 @@ import AbstractHandler from './AbstractHandler';
 import ResponseText from '../constants/ResponseText';
 
 import CalendarUtil from '../utils/CalendarUtil';
-const TIME_ZONE = 'Asia/Hong_Kong';
-const DATE_FORMAT = 'YYYY-MM-DD';
+
 const HolidayResponseText = ResponseText.Holiday;
+const TIME_ZONE = 'Asia/Hong_Kong';
+const YYYY_MM_DD = 'YYYY-MM-DD';
 
 export default class HolidayHandler extends AbstractHandler {
     async getReply(msg, match) {
-        const todayDate = moment().tz(TIME_ZONE).format(DATE_FORMAT);
-        const holidays = await CalendarUtil.getHolidays(todayDate, 5);
+        const nextRestDay = await CalendarUtil.getNextRestDay();
+        const nextRestDayMoment = moment.tz(nextRestDay.date, YYYY_MM_DD, TIME_ZONE);
+        const currentMoment = moment(TIME_ZONE).tz();
 
-        return HolidayResponseText.HOLIDAY_LIST
-            + holidays.map((holiday) => HolidayResponseText.HOLIDAY_ITEM
-                .replace('{d}', holiday.date)
-                .replace('{n}', holiday.numDays)
-                .replace('{t}', holiday.title)
-            ).join('\n');
+        const duration = moment.duration(nextRestDayMoment.diff(currentMoment));
+        const numDays = Math.ceil(duration.asDays());
+
+        if (numDays === 0) {
+            return HolidayResponseText.ALREADY_HOLIDAY
+                .replace('{title}', nextRestDay.title);
+        } else {
+            return HolidayResponseText.DAYS_FROM_HOLIDAY
+                .replace('{title}', nextRestDay.title)
+                .replace('{d}', numDays);
+        }
     }
 }
