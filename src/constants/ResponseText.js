@@ -30,7 +30,9 @@ export default {
         TURNED_OFF: '關',
     },
     AllAction: {
-        START: 'All {a}偵察器開始運行，請於5秒內報告！',
+        START: 'All {a}偵察器開始運行，請於{d}秒內報告！',
+        EXCEED_MAX: '你太長了(接受值：{min}秒-{max}秒)',
+        EXCEED_MIN: '你太短了(接受值：{min}秒-{max}秒)',
         ALREADY_STARTED: 'All {a}偵察器已在運行中！',
         SOMEONE_REPORTED: '{u}已報告！',
         RESULT_PREFIX: 'All {a}結果：\n',

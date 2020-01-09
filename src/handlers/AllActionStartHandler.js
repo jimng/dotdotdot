@@ -5,7 +5,9 @@ import AbstractHandler from './AbstractHandler';
 import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
-const DETECT_DURATION = 5 * 1000; // 5 seconds
+const DEFAULT_DETECT_DURATION_IN_SECOND = 60;
+const MIN_DETECT_DURATION_IN_SECOND = 3;
+const MAX_DETECT_DURATION_IN_SECOND = 300;
 
 export default class AllActionStartHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
@@ -25,7 +27,7 @@ export default class AllActionStartHandler extends AbstractHandler {
         return Object.values(chatUsersMap);
     }
 
-    async _insertStatus(connection, chatId, userId) {
+    async _insertStatus(connection, chatId, userId, durationInSecond) {
         const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
         const chatUserIds = (await this._getChatUsers(connection, chatId)).map(chatUser => chatUser.id);
         let usersStatus = {};
@@ -40,6 +42,7 @@ export default class AllActionStartHandler extends AbstractHandler {
             {
                 usersStatus,
                 timestamp: Date.now(),
+                durationInSecond,
             },
             { upsert: true }
         );
@@ -49,11 +52,32 @@ export default class AllActionStartHandler extends AbstractHandler {
         const chatId = msg.chat.id;
         const userId = msg.from.id;
         const actionName = match[1].toLowerCase();
+        const durationInSecond = match[2] !== undefined ? parseInt(match[2], 10) : DEFAULT_DETECT_DURATION_IN_SECOND;
+
+        if (durationInSecond > MAX_DETECT_DURATION_IN_SECOND) {
+            const message = ResponseText.AllAction.EXCEED_MAX
+                .replace(/{max}/g, MAX_DETECT_DURATION_IN_SECOND)
+                .replace(/{min}/g, MIN_DETECT_DURATION_IN_SECOND);
+
+            await this._bot.sendMessage(chatId, message);
+
+            throw new Error('Invalid duration');
+        }
+
+        if (durationInSecond < MIN_DETECT_DURATION_IN_SECOND) {
+            const message = ResponseText.AllAction.EXCEED_MIN
+                .replace(/{max}/g, MAX_DETECT_DURATION_IN_SECOND)
+                .replace(/{min}/g, MIN_DETECT_DURATION_IN_SECOND);
+
+            await this._bot.sendMessage(chatId, message);
+
+            throw new Error('Invalid duration');
+        }
 
         await Promise.using(getConnectionDisposer(), async(connection) => {
             const status = await this._getStatus(connection, chatId, userId);
 
-            if ((status !== null) && ((Date.now() - status.timestamp) < DETECT_DURATION)) {
+            if ((status !== null) && ((Date.now() - status.timestamp) < status.durationInSecond * 1000)) {
                 const message = ResponseText.AllAction.ALREADY_STARTED
                     .replace(/{a}/g, actionName);
 
@@ -63,13 +87,14 @@ export default class AllActionStartHandler extends AbstractHandler {
             }
 
             const startMessage = ResponseText.AllAction.START
-                .replace(/{a}/g, actionName);
+                .replace(/{a}/g, actionName)
+                .replace(/{d}/g, durationInSecond);
 
             await this._bot.sendMessage(chatId, startMessage);
-            await this._insertStatus(connection, chatId, userId);
+            await this._insertStatus(connection, chatId, userId, durationInSecond);
         });
 
-        await new Promise.delay(DETECT_DURATION);
+        await new Promise.delay(durationInSecond * 1000);
         await Promise.using(getConnectionDisposer(), async(connection) => {
             const { usersStatus } = await this._getStatus(connection, chatId, userId);
             const chatUsers = await this._getChatUsers(connection, chatId);

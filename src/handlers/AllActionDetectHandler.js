@@ -5,8 +5,6 @@ import AbstractHandler from './AbstractHandler';
 import DBSchema from '../constants/DBSchema';
 import ResponseText from '../constants/ResponseText';
 
-const DETECT_DURATION = 5 * 1000; // 5 seconds
-
 export default class AllActionDetectHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
         const collection = connection.collection(DBSchema.Collections.ALL_ACTION);
@@ -37,7 +35,7 @@ export default class AllActionDetectHandler extends AbstractHandler {
             const userFirstName = msg.from.first_name;
             const status = await this._getStatus(connection, chatId);
 
-            if ((status === null) || ((Date.now() - status.timestamp) >= DETECT_DURATION)) {
+            if ((status === null) || ((Date.now() - status.timestamp) >= status.durationInSecond * 1000)) {
                 return;
             }
 
