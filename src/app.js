@@ -92,7 +92,7 @@ async function start() {
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {
-            regex: new RegExp(`^/${Commands.ALL_ACTION}(\\w+)\\s+(\\d+)?(${atBot})?\\s*$`, 'i'),
+            regex: new RegExp(`^/${Commands.ALL_ACTION}(\\w+)(\\s+\\d+)?(${atBot})?\\s*$`, 'i'),
             Class: AllActionStartHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
