@@ -35,7 +35,11 @@ export default class AllActionDetectHandler extends AbstractHandler {
             const userFirstName = msg.from.first_name;
             const status = await this._getStatus(connection, chatId);
 
-            if ((status === null) || ((Date.now() - status.timestamp) >= status.durationInSecond * 1000)) {
+            if (
+                (status === null) ||
+                (status.durationInSecond === undefined) ||
+                (status.timestamp === undefined) ||
+                ((Date.now() - status.timestamp) >= status.durationInSecond * 1000)) {
                 return;
             }
 
