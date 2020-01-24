@@ -1,5 +1,6 @@
 export default {
     LEAVE: 'leave',
+    HOLIDAY_LEAVE: 'holiday_leave',
     WORK: 'work',
     NEXT_HOLIDAY: 'holiday',
     PUBLIC_HOLIDAYS: 'public_holidays',
