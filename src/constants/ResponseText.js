@@ -1,4 +1,7 @@
 export default {
+    Time: {
+        TIME: '香港時間：{hk}\n盧森堡時間：{lux}',
+    },
     Leave: {
         NEED_OT: '你又OT做奴！',
         WORK_ON_WEEKEND: '星期六日都做野，嗚呀！',

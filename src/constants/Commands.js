@@ -1,4 +1,5 @@
 export default {
+    TIME: 'time',
     LEAVE: 'leave',
     HOLIDAY_LEAVE: 'holiday_leave',
     WORK: 'work',
