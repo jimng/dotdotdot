@@ -27,6 +27,7 @@ import DailyCountHandler from './handlers/DailyCountHandler';
 import IQQuestionHandler from './handlers/IQQuestionHandler';
 import IQAnswerHandler from './handlers/IQAnswerHandler';
 import ExamHandler from './handlers/ExamHandler';
+import EvalHandler from './handlers/EvalHandler';
 import ExamAnswerHandler from './handlers/ExamAnswerHandler';
 import NSFWDetectHandler from './handlers/NSFWDetectHandler';
 
@@ -95,6 +96,10 @@ async function start() {
         {
             regex: new RegExp(`^/${Commands.IQ_ANSWER}_(\\d+)(${atBot})?$`, 'i'),
             Class: IQAnswerHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.EVAL}(${atBot})?\\s+(.+)$`, 'i'),
+            Class: EvalHandler
         },
         {
             regex: new RegExp(`^/${Commands.EXAM}(${atBot})?\\s*$`, 'i'),

@@ -21,4 +21,5 @@ export default {
     IQ_QUESTION: 'iq',
     IQ_ANSWER: 'iqa',
     EXAM: 'exam',
+    EVAL: 'eval',
 };
