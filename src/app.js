@@ -48,7 +48,8 @@ async function start() {
         },
         {
             regex: new RegExp(`^/${Commands.LEAVE}(${atBot})?\\s*$`, 'i'),
-            Class: LeaveHandler
+            Class: LeaveHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {
             regex: new RegExp(`^/${Commands.HOLIDAY_LEAVE}(${atBot})?\\s*$`, 'i'),
