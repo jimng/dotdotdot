@@ -18,6 +18,8 @@ export default {
     CGST_DETECT: 'cgst_detect',
     NSFW_DETECT: 'nsfw_detect',
     DAILY_COUNT: 'daily_count',
+    SET_WORK_START_TIME: 'set_work_start',
+    SET_WORK_END_TIME: 'set_work_end',
     IQ_QUESTION: 'iq',
     IQ_ANSWER: 'iqa',
     EXAM: 'exam',

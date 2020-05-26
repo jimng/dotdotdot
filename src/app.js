@@ -24,6 +24,7 @@ import AllActionStartHandler from './handlers/AllActionStartHandler';
 import AllActionDetectHandler from './handlers/AllActionDetectHandler';
 import CGSTDetectHandler from './handlers/CGSTDetectHandler';
 import DailyCountHandler from './handlers/DailyCountHandler';
+import SetUserProfileHandler from './handlers/SetUserProfileHandler';
 import IQQuestionHandler from './handlers/IQQuestionHandler';
 import IQAnswerHandler from './handlers/IQAnswerHandler';
 import ExamHandler from './handlers/ExamHandler';
@@ -109,6 +110,11 @@ async function start() {
         {
             regex: new RegExp(`^/${Commands.ALL_ACTION}(\\w+)(\\s+\\d+)?(${atBot})?\\s*$`, 'i'),
             Class: AllActionStartHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
+            regex: new RegExp(`^/(${Commands.SET_WORK_START_TIME}|${Commands.SET_WORK_END_TIME})(${atBot})?\\s+([\\w\\+\\:]+)$`, 'i'),
+            Class: SetUserProfileHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
         {

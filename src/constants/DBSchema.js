@@ -5,10 +5,15 @@ export default {
         ALL_ACTION: 'AllAction',
         EXAM: 'Exam',
         CHAT_USERS: 'ChatUsers',
+        USER_PROFILE: 'UserProfile',
     },
     ChatConfigs: {
         CGST_DETECT: 'cgstDetect',
         DAILY_COUNT: 'dailyCount',
         NSFW_DETECT: 'nsfwDetect',
     },
+    UserProfiles: {
+        WORK_START_TIME: 'workStartTime',
+        WORK_END_TIME: 'workEndTime',
+    }
 };
