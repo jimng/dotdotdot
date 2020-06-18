@@ -7,7 +7,7 @@ import ResponseText from '../constants/ResponseText';
 
 import KeyboardUtil from '../utils/KeyboardUtil';
 
-const EXAM_DURATION = 60 * 1000; // 1min
+const EXAM_DURATION_SEC = 60; // 1min
 
 export default class ExamHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
@@ -56,10 +56,13 @@ export default class ExamHandler extends AbstractHandler {
         const answers = [1, 2, 3, 4];
         const correctAnswer = 'B';
         let questionMessage;
+        let remainingDurationSec = EXAM_DURATION_SEC;
+        let questionText = ResponseText.Exam.QUESTION
+            .replace('{q}', question)
+            .replace('{s}', remainingDurationSec);
 
         await Promise.using((getConnectionDisposer()), async(connection) => {
             const status = await this._getStatus(connection, chatId);
-            const questionText = ResponseText.Exam.QUESTION.replace('{q}', question);
 
             if (status) {
                 await this._bot.sendMessage(chatId, ResponseText.Exam.ALREADY_STARTED);
@@ -76,11 +79,28 @@ export default class ExamHandler extends AbstractHandler {
             });
         });
 
+        const interval = setInterval(async () => {
+            remainingDurationSec--;
+
+            questionText = ResponseText.Exam.QUESTION
+                .replace('{q}', question)
+                .replace('{s}', remainingDurationSec);
+
+            await this._bot.editMessageText(questionText, {
+                'chat_id': chatId,
+                'message_id': questionMessage['message_id'],
+                'reply_markup': {
+                    'inline_keyboard': KeyboardUtil.getExamInlineKeyboard(answers),
+                },
+            });
+        }, 1000);
+
         await new Promise((resolve, reject) => {
-            setTimeout(resolve, EXAM_DURATION);
+            setTimeout(resolve, EXAM_DURATION_SEC * 1000);
         });
 
         await Promise.using((getConnectionDisposer()), async(connection) => {
+            clearInterval(interval);
             const status = await this._getStatus(connection, chatId);
             const chatUsers = await this._getChatUsers(connection, chatId);
             const answerText = ResponseText.Exam.RESULT_PREFIX

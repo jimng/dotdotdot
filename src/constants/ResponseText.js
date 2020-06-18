@@ -62,7 +62,7 @@ export default {
         TEXT: '下期六合彩號碼：',
     },
     Exam: {
-        QUESTION: '----------問答遊戲----------\n問題：{q}',
+        QUESTION: '----------問答遊戲----------\n請於{s}秒內作答\n問題：{q}',
         RESULT_PREFIX: '----------問答遊戲----------\n問題：{q}\n答案：{a}\n成績：\n',
         RESULT_CORRECT: '✓',
         RESULT_WRONG: '✖',
