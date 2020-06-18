@@ -3,11 +3,13 @@ import Promise from 'bluebird';
 import AbstractHandler from './AbstractHandler';
 
 import DBSchema from '../constants/DBSchema';
+import ExamQuestions from '../constants/ExamQuestions';
 import ResponseText from '../constants/ResponseText';
 
 import KeyboardUtil from '../utils/KeyboardUtil';
 
 const EXAM_DURATION_SEC = 60; // 1min
+const numExamQuestions = ExamQuestions.length;
 
 export default class ExamHandler extends AbstractHandler {
     async _getStatus(connection, chatId) {
@@ -50,11 +52,11 @@ export default class ExamHandler extends AbstractHandler {
     }
 
     async handle(msg, match, getConnectionDisposer) {
-        // TODO: Replace with real questions
         const chatId = msg.chat.id;
-        const question = '1+1=?';
-        const answers = [1, 2, 3, 4];
-        const correctAnswer = 'B';
+        const index = Math.floor(Math.random() * numExamQuestions);
+        const question = ExamQuestions[index].q;
+        const answers = ExamQuestions[index].c;
+        const correctAnswer = ExamQuestions[index].a;
         let questionMessage;
         let remainingDurationSec = EXAM_DURATION_SEC;
         let questionText = ResponseText.Exam.QUESTION
