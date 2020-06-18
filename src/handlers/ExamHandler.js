@@ -59,13 +59,12 @@ export default class ExamHandler extends AbstractHandler {
         const options = `A: ${answers[0]}\nB: ${answers[1]}\nC: ${answers[2]}\nD: ${answers[3]}`;
         const correctAnswer = ExamQuestions[index].a;
         let questionMessage;
-        let remainingDurationSec = EXAM_DURATION_SEC;
-        let questionText = ResponseText.Exam.QUESTION
-            .replace('{q}', question)
-            .replace('{s}', remainingDurationSec);
 
         await Promise.using((getConnectionDisposer()), async(connection) => {
             const status = await this._getStatus(connection, chatId);
+            const questionText = ResponseText.Exam.QUESTION
+                .replace('{s}', EXAM_DURATION_SEC)
+                .replace('{q}', question);
 
             if (status) {
                 await this._bot.sendMessage(chatId, ResponseText.Exam.ALREADY_STARTED);
@@ -82,28 +81,11 @@ export default class ExamHandler extends AbstractHandler {
             });
         });
 
-        const interval = setInterval(async () => {
-            remainingDurationSec--;
-
-            questionText = ResponseText.Exam.QUESTION
-                .replace('{q}', question)
-                .replace('{s}', remainingDurationSec);
-
-            await this._bot.editMessageText(questionText, {
-                'chat_id': chatId,
-                'message_id': questionMessage['message_id'],
-                'reply_markup': {
-                    'inline_keyboard': KeyboardUtil.getExamInlineKeyboard(answers),
-                },
-            });
-        }, 1000);
-
         await new Promise((resolve, reject) => {
             setTimeout(resolve, EXAM_DURATION_SEC * 1000);
         });
 
         await Promise.using((getConnectionDisposer()), async(connection) => {
-            clearInterval(interval);
             const status = await this._getStatus(connection, chatId);
             const chatUsers = await this._getChatUsers(connection, chatId);
             const answerText = ResponseText.Exam.RESULT_PREFIX

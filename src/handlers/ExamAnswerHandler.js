@@ -30,6 +30,8 @@ export default class ExamAnswerHandler extends AbstractHandler {
         const chatId = callbackMsg.message.chat.id;
         const userId = callbackMsg.from.id;
         const answer = callbackMsg.data.data;
+        
+        console.log('answer', answer);
 
         if (
             (answer !== 'A') &&
