@@ -63,7 +63,7 @@ export default {
     },
     Exam: {
         QUESTION: '----------問答遊戲----------\n請於{s}秒內作答\n問題：{q}',
-        RESULT_PREFIX: '----------問答遊戲----------\n問題：{q}\n答案：{a}\n成績：\n',
+        RESULT_PREFIX: '----------問答遊戲----------\n問題：{q}\n選項：\n{o}\n答案：{a}\n成績：\n',
         RESULT_CORRECT: '✓',
         RESULT_WRONG: '✖',
         RESULT_ABANDONED: '棄權',

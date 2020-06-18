@@ -56,6 +56,7 @@ export default class ExamHandler extends AbstractHandler {
         const index = Math.floor(Math.random() * numExamQuestions);
         const question = ExamQuestions[index].q;
         const answers = ExamQuestions[index].c;
+        const options = `A: ${answers[0]}\nB: ${answers[1]}\nC: ${answers[2]}\nD: ${answers[3]}`;
         const correctAnswer = ExamQuestions[index].a;
         let questionMessage;
         let remainingDurationSec = EXAM_DURATION_SEC;
@@ -107,6 +108,7 @@ export default class ExamHandler extends AbstractHandler {
             const chatUsers = await this._getChatUsers(connection, chatId);
             const answerText = ResponseText.Exam.RESULT_PREFIX
                 .replace(/{q}/g, question)
+                .replace(/{o}/g, options)
                 .replace(/{a}/g, correctAnswer) +
                 chatUsers.map((chatUser) => {
                     const userAnswer = (status[chatUser.id] ? status[chatUser.id] : ResponseText.Exam.RESULT_ABANDONED);
