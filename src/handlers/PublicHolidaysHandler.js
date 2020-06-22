@@ -8,7 +8,7 @@ const PublicHolidaysResponseText = ResponseText.PublicHolidays;
 
 export default class PublicHolidaysHandler extends AbstractHandler {
     async getReply(msg, match) {
-        const holidays = await CalendarUtil.getPublicHolidays(5);
+        const holidays = await CalendarUtil.getPublicHolidays(100);
         
         return PublicHolidaysResponseText.HOLIDAY_LIST
             + holidays.map((holiday) => PublicHolidaysResponseText.HOLIDAY_ITEM
