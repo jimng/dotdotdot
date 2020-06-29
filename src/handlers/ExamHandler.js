@@ -8,7 +8,7 @@ import ResponseText from '../constants/ResponseText';
 
 import KeyboardUtil from '../utils/KeyboardUtil';
 
-const EXAM_DURATION_SEC = 60; // 1min
+const EXAM_DURATION_SEC = 20; // 20s
 const numExamQuestions = ExamQuestions.length;
 
 export default class ExamHandler extends AbstractHandler {
