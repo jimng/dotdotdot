@@ -6,6 +6,7 @@ export default {
         EXAM: 'Exam',
         CHAT_USERS: 'ChatUsers',
         USER_PROFILE: 'UserProfile',
+        CUSTOM_COMMAND: 'CustomCommand',
     },
     ChatConfigs: {
         CGST_DETECT: 'cgstDetect',

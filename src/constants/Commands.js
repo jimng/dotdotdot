@@ -24,4 +24,5 @@ export default {
     IQ_ANSWER: 'iqa',
     EXAM: 'exam',
     EVAL: 'eval',
+    REGISTER_COMMAND: 'register',
 };

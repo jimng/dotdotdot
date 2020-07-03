@@ -71,5 +71,10 @@ export default {
     },
     NSFWDetect: {
         PROTECT: '極危險！！！！！\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n危險！！！！！\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n已成功保護大家！！！！！',
+    },
+    RegisterCommand: {
+        COMMAND_EXISTS: '命令已存在！',
+        NO_RIGHT: '你沒有權利！',
+        SUCCESS: '設定成功！',
     }
 };

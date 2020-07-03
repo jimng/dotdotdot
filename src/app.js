@@ -31,6 +31,8 @@ import ExamHandler from './handlers/ExamHandler';
 import EvalHandler from './handlers/EvalHandler';
 import ExamAnswerHandler from './handlers/ExamAnswerHandler';
 import NSFWDetectHandler from './handlers/NSFWDetectHandler';
+import RegisterCommandHandler from './handlers/RegisterCommandHandler';
+import CustomCommandHandler from './handlers/CustomCommandHandler';
 
 async function start() {
     const bot = TelegramUtil.getInstance();
@@ -104,6 +106,11 @@ async function start() {
             Class: EvalHandler
         },
         {
+            regex: new RegExp(`^/${Commands.REGISTER_COMMAND}(${atBot})?\\s+(\\S+)\\s+(.+)$`, 'i'),
+            Class: RegisterCommandHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
             regex: new RegExp(`^/${Commands.EXAM}(${atBot})?\\s*$`, 'i'),
             Class: ExamHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
@@ -136,6 +143,11 @@ async function start() {
         {
             regex: new RegExp('(.+)', 'i'),
             Class: AllActionDetectHandler,
+            params: () => [ MongoDBUtil.getConnectionDisposer ],
+        },
+        {
+            regex: new RegExp('^/(\\S+)(${atBot})?(\\s+)?(.*)$', 'i'),
+            Class: CustomCommandHandler,
             params: () => [ MongoDBUtil.getConnectionDisposer ],
         },
     ];
