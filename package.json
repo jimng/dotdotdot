@@ -16,7 +16,7 @@
         "escape-string-regexp": "^1.0.5",
         "googleapis": "^41.0.1",
         "moment-timezone": "^0.5.14",
-        "mongodb": "^2.2.33",
+        "mongodb": "^3.6.1",
         "node-telegram-bot-api": "^0.30.0",
         "ramda": "^0.26.1",
         "safe-eval": "^0.4.1",
