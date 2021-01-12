@@ -1,5 +1,6 @@
 export default {
     TIME: 'time',
+    WEATHER: 'weather',
     LEAVE: 'leave',
     HOLIDAY_LEAVE: 'holiday_leave',
     WORK: 'work',

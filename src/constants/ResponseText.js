@@ -2,6 +2,11 @@ export default {
     Time: {
         TIME: '香港時間：{hk}\n盧森堡時間：{lux}',
     },
+    WEATHER: {
+        HK_HEADER: '香港－',
+        LUX_HEADER: '盧森堡－',
+        BODY: '溫度：{t}°C\n體感溫度：{fl}°C\n最低溫度：{lt}°C\n最高溫度：{ht}°C\n濕度：{h}%',
+    },
     Leave: {
         UNEMPLOYED: '請善用https://www2.jobs.gov.hk/',
         NEED_OT: '你又OT做奴！',

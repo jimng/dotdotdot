@@ -9,6 +9,7 @@ import MongoDBUtil from './utils/MongoDBUtil';
 import UserRegisterHandler from './handlers/UserRegisterHandler';
 import ConfigToggleHandler from './handlers/ConfigToggleHandler';
 import TimeHandler from './handlers/TimeHandler';
+import WeatherHandler from './handlers/WeatherHandler';
 import LeaveHandler from './handlers/LeaveHandler';
 import HolidayLeaveHandler from './handlers/HolidayLeaveHandler';
 import WorkHandler from './handlers/WorkHandler';
@@ -47,6 +48,10 @@ async function start() {
         {
             regex: new RegExp(`^/${Commands.TIME}(${atBot})?\\s*$`, 'i'),
             Class: TimeHandler
+        },
+        {
+            regex: new RegExp(`^/${Commands.WEATHER}(${atBot})?\\s*$`, 'i'),
+            Class: WeatherHandler
         },
         {
             regex: new RegExp(`^/${Commands.LEAVE}(${atBot})?\\s*$`, 'i'),
