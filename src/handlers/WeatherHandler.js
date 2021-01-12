@@ -5,7 +5,7 @@ import AbstractHandler from './AbstractHandler';
 import ResponseText from '../constants/ResponseText';
 
 const HK = 'HONGKONG';
-const LUX = 'Luxembourg';
+const LUX = 'Luxemburg';
 
 const CELSIUS_OFFSET = 273.15;
 
