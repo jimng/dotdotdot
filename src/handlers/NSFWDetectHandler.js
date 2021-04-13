@@ -52,8 +52,12 @@ export default class NSFWDetectHandler extends AbstractHandler {
         const dataResponse = await axios.get(photoUri, { responseType: 'arraybuffer' });
         const base64Buffer = new Buffer(dataResponse.data, 'binary').toString('base64');
         const safeSearchResult = await ImageDetectionUtil.getSafeSearchResult(base64Buffer);
+        const notSafe = safeSearchResult.some((label) => (
+            label.Confidence > 90 &&
+            (label.Name === 'Suggestive' || label.Name === 'Explicit Nudity')
+        ));
 
-        if (safeSearchResult.adult === 'VERY_LIKELY' || safeSearchResult.racy === 'VERY_LIKELY') {
+        if (notSafe) {
             await this._bot.sendMessage(chatId, ResponseText.NSFWDetect.PROTECT);
         }
     }

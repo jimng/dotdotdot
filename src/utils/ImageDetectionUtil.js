@@ -1,25 +1,17 @@
-import { google } from 'googleapis';
+import AWS from 'aws-sdk';
 
 const SAFE_SEARCH_FEATURE = 'SAFE_SEARCH_DETECTION';
 
-const vision = google.vision('v1');
+const rekognition = new AWS.Rekognition({ region: 'ap-southeast-1' });
 
 async function getSafeSearchResult(imageBase64Buffer) {
-    const response = await vision.images.annotate({
-        auth: process.env.GOOGLE_API_KEY,
-        requestBody: {
-            requests: [{
-                image: {
-                    content: imageBase64Buffer,
-                },
-                features: [
-                    { type: SAFE_SEARCH_FEATURE }
-                ]
-            }],
+    const response = await rekognition.detectModerationLabels({
+        Image: {
+            Bytes: Buffer.from(imageBase64Buffer, 'base64')
         }
-    });
+    }).promise();
     
-    return response.data.responses[0].safeSearchAnnotation;
+    return response.ModerationLabels;
 }
 
 module.exports = {
